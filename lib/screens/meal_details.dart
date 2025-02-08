@@ -11,6 +11,10 @@ class MealDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favouriteMeals = ref.watch(favouriteMealsProvider);
+
+    final isFavourite = favouriteMeals.contains(meal);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -26,7 +30,7 @@ class MealDetailsScreen extends ConsumerWidget {
                       ? 'Meal added as a favourite'
                       : 'Meal removed as favourite')));
             },
-            icon: const Icon(Icons.star),
+            icon: Icon(isFavourite ? Icons.star : Icons.star_border),
           ),
         ],
       ),
@@ -59,7 +63,7 @@ class MealDetailsScreen extends ConsumerWidget {
                     .bodyLarge!
                     .copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Text(
@@ -68,7 +72,7 @@ class MealDetailsScreen extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
             for (final step in meal.steps)
